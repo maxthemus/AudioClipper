@@ -19,7 +19,6 @@ async def audio_stream(callback):
 
     sd.sleep(duration * 1000)
 
-
     stream.stop()
 
 
