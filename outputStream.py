@@ -46,3 +46,5 @@ sd.wait()
 
 
 sys.exit()
+
+#https://www.reddit.com/r/Ubuntu/comments/se4vl7/pulseaudio_audio_output_to_send_virtual/
