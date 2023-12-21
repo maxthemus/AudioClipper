@@ -5,16 +5,16 @@ import asyncio
 
 #print(sd.query_devices())
 sample_rate = 44100
-channels = 2
+channels = 4
 duration = 5  # in seconds
 
 insertIndex = 0
 audio_data = []
 
+
 async def audio_stream(callback):
-    sd.default.device = "default"
     print(sd.query_devices())
-    stream = sd.InputStream(callback=callback, samplerate=sample_rate, channels=2)
+    stream = sd.InputStream(device=("default", "Blue Snowball"), callback=callback, samplerate=sample_rate, channels=2)
     stream.start()
 
     sd.sleep(duration * 1000)
@@ -28,9 +28,12 @@ def audio_callback(indata, frames, time, status):
     if status:
         print(status)
     for sub_array in indata:
-        audio_data.append(sub_array.tolist())
-    #np.append(audio_data, indata, axis=0)
-    #audio_data = np.vstack((audio_data, indata))
+        array = sub_array.tolist()
+        audio_data.append(array)
+
+
+print(sd.query_devices(kind='input'))
+
 
 
 # Start the audio stream with the callback function
@@ -48,3 +51,4 @@ sd.wait()
 sys.exit()
 
 #https://www.reddit.com/r/Ubuntu/comments/se4vl7/pulseaudio_audio_output_to_send_virtual/
+#https://bbs.archlinux.org/viewtopic.php?id=257270
